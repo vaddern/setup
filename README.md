@@ -5,6 +5,7 @@ Overview:
 1. [VM Linux](#vm-linux)
     1. [Forward SSH access on Windows](#forward-ssh-access-on-windows)
 1. [Git](#git)
+1. [Python](#python)
 1. [VSCode](#vscode)
 1. [References](#references)
 
@@ -93,6 +94,22 @@ git config --global user.name "John Doe"
 git config --global user.email johndoe@example.com
 git config --global core.autocrlf true
 git config --global init.defaultbranch main
+```
+
+# Python
+```powershell
+winget install -e python3
+New-Item -ItemType Directory -Force -Path $(Split-Path -Parent $profile)
+notepad $profile # open in text editor
+# update your path
+$env:PATH = "$env:LocalAppdata\Programs\Python\Python312;" + $env:PATH
+
+# open powershell as admin:
+cd $env:LocalAppdata\Programs\Python\Python312
+New-Item -ItemType SymbolicLink -Path python310.dll -Target python312.dll
+New-Item -ItemType SymbolicLink -Path python3.exe -Target python.exe
+# windows search: "Manage app aliases" -> disable python and python3 installers
+# restart powershell session
 ```
 
 # VSCode
