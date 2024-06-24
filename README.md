@@ -36,7 +36,7 @@ $CPUs = 8
 
 # do it once
 winget install -e --id Oracle.VirtualBox
-curl -L https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-12.5.0-amd64-netinst.iso -O $debianISO
+curl -kLo $debianISO  https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-12.5.0-amd64-netinst.iso
 
 # create and configure VM
 & $vbox\VBoxManage createvm --name $machine --ostype "Debian_64" --register --basefolder $dest
@@ -104,10 +104,10 @@ notepad $profile # open in text editor
 # update your path
 $env:PATH = "$env:LocalAppdata\Programs\Python\Python312;" + $env:PATH
 
-# open powershell as admin:
+# open powershell as admin or enable developer mode (windows search: developer settings):
 cd $env:LocalAppdata\Programs\Python\Python312
-New-Item -ItemType SymbolicLink -Path python310.dll -Target python312.dll
-New-Item -ItemType SymbolicLink -Path python3.exe -Target python.exe
+cmd /c mklink python310.dll python312.dll
+cmd /c mklink python3.exe python.exe
 # windows search: "Manage app aliases" -> disable python and python3 installers
 # restart powershell session
 ```
