@@ -51,10 +51,8 @@ curl -kLo $debianISO  https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/
 & $vbox\VBoxManage startvm $machine
 # optional:
 # add alias "deb-start"
-New-Item -ItemType Directory -Force -Path $(Split-Path -Parent $profile)
-$func = "function deb-start { & '$vbox\VBoxManage' startvm $machine }"
-echo $func >> $profile
-. $profile
+"function deb-start { & '`$vbox\VBoxManage' startvm `$machine }" >> $profile
+. $profile # restart shell
 ```
 Minimal SSH server:
 1. `Graphical Install` -> `English` -> `United States` -> `American English`
@@ -99,11 +97,9 @@ git config --global init.defaultbranch main
 # Python
 ```powershell
 winget install -e python3
-New-Item -ItemType Directory -Force -Path $(Split-Path -Parent $profile)
-notepad $profile # open in text editor
 # update your path
-$env:PATH = "$env:LocalAppdata\Programs\Python\Python312;" + $env:PATH
-
+"`$env:PATH = `"`$env:LocalAppdata\Programs\Python\Python312;`$env:PATH`"" >> $profile
+. $profile # restart shell
 # open powershell as admin or enable developer mode (windows search: developer settings):
 cd $env:LocalAppdata\Programs\Python\Python312
 cmd /c mklink python310.dll python312.dll
